@@ -2,6 +2,16 @@ require 'active_support/concern'
 require 'active_support/core_ext/array/extract_options'
 
 module MoneyRails
+  def self.use_bank name = :google_currency, bank = nil
+    require "money/bank/#{name}"
+    bank ||= bank_class(name)
+    Money.default_bank = bank.new
+  end
+
+  def self.bank_class name = :google_currency
+    "Money::Bank::#{name.to_s.camelize}".contantize
+  end
+
   module Monetizable
     extend ActiveSupport::Concern
 
