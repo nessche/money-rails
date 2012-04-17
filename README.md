@@ -54,28 +54,6 @@ Now the model objects will have a ```discount_value``` attribute which
 is a Money object, wrapping the value of ```discount``` column to a
 Money instance.
 
-## Bank integration
-
-Also includes Bank integration for Currency service of your choice:
-
-Gemfile
-
-```
-gem 'money-rails'
-gem 'google_currency'
-```
-
-```ruby
-MoneyRails.use_bank :google_currency
-```
-
-Use other Currency services in a similar fashion. You can also explicitly set the class name for the service if it doesn't follow the format: `Money::Bank::[name]`
-
-```ruby
-MoneyRails.use_bank :forex, Forex::CurrencyService
-```
-
-
 ## License
 
 MIT License. Copyright 2012 RubyMoney.
