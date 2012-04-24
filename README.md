@@ -114,7 +114,6 @@ A similar "multiple price" model can be used for MongoMapper.
 
 ```ruby
 class Price
-	include MongoMapper::Document	
 	monetizable_orm :mongo_mapper
 
 	belongs_to 	:priced, :polymorphic => true
@@ -144,7 +143,6 @@ MoneyRails.default_polymorphic_money = :priced
 
 # later in your models
 class Account
-	include Mongoid::Document	
 	monetize_orm :mongoid
 
 	monetize_one :rental_price
