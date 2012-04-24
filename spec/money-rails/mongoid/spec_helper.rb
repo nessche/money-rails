@@ -12,6 +12,10 @@ require 'money-rails'
 
 MoneyRails.default_polymorphic_money = :priced
 
+MoneyRails::Orms.extend_for :mongoid
+
+# puts Class.methods.grep /as_/
+
 require 'money-rails/mongoid/models/price'
 require 'money-rails/mongoid/models/account'
 

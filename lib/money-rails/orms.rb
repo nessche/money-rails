@@ -1,4 +1,5 @@
-require "money-rails/generic_orm" 
+require "money-rails/orm/generic" 
+require "money-rails/orm/macros"
 
 if defined?(ActiveRecord::Base)
 	require "money-rails/active_record/monetizable" 
@@ -7,6 +8,7 @@ end
 if defined?(Mongoid::Document)
 	require "money-rails/mongoid/monetizable"
 	require "money-rails/mongoid/monetize"
+
 end
 
 if defined?(MongoMapper::Document)
@@ -28,6 +30,8 @@ module MoneyRails
 				if defined?(::ActiveRecord::Base)
 					::ActiveRecord::Base.send(:include, MoneyRails::ActiveRecord::Monetizable) 
 				end
+			when :mongoid, :mongo_mapper
+				Object.send :include, ::MoneyRails::Orm::Macros
 			else
 				raise ArgumentError, "ORM extension for #{name} is currently not supported."
 			end

@@ -105,6 +105,8 @@ end
 class Account
 	include Mongoid::Document
 	include MoneyRails::MongoMapper::Monetizable
+	# or via macro:-  monetizable_orm :mongoid
+	# ...
 end
 ```
 
@@ -112,14 +114,14 @@ A similar "multiple price" model can be used for MongoMapper.
 
 ```ruby
 class Price
-	include MongoMapper::Document
-	include MoneyRails::Mongoid::Monetizable
+	include MongoMapper::Document	
+	monetizable_orm :mongo_mapper
 
 	belongs_to 	:priced, :polymorphic => true
 end
 
 class Account
-	include MongoMapper::Document
+	include MongoMapper::Document	
 
 	one :rental_price, :as => :priced
 	one :deposit, :as => :priced	
@@ -142,10 +144,11 @@ MoneyRails.default_polymorphic_money = :priced
 
 # later in your models
 class Account
-	include Mongoid::Document
+	include Mongoid::Document	
+	monetize_orm :mongoid
 
 	monetize_one :rental_price
-	monetize_many :deposits
+	monetize_many :deposits, :class_name => 'Price'
 
 	monetize :secret_price, :as => :priced
 

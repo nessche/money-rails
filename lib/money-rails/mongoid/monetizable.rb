@@ -3,7 +3,7 @@
 module MoneyRails
 	module Mongoid
 		module Monetizable
-			include MoneyRails::GenericOrm
+			include MoneyRails::Orm::Generic
 
 			def self.included(base)
 				base.class_eval do
@@ -12,7 +12,7 @@ module MoneyRails
 				  
 				  validates_numericality_of :price_pence
 				end
-				base.extend MoneyRails::GenericOrm::ClassMethods				
+				base.extend MoneyRails::Orm::Generic::ClassMethods				
 			end
 		end
 	end
