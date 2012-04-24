@@ -54,6 +54,62 @@ Now the model objects will have a ```discount_value``` attribute which
 is a Money object, wrapping the value of ```discount``` column to a
 Money instance.
 
+## ORM support
+
+Money-Rails now supports integration with ActiveRecord, Mongoid and MongoMapper. It should be easy to integrate the ORM of your choice if you look at the sample adapters.
+
+To get a list of supported ORMs:
+
+`MoneyRails::Orms.supported`
+
+The Mongoid and MongoMapper integrations will add the following methods:
+
+* price_pence (Integer)
+* price= (Money)
+* price (Money)
+* currency (Money::Currency)
+* currency_iso (String)
+
+I order to add multiple prices (money items) to a model, create a generic, polymorphic Price model and embed instances of it with different names.
+
+### Mongoid example
+
+```ruby
+class Account
+	include Mongoid::Document
+	include MoneyRails::Mongoid::Monetizable
+end
+```
+
+Multiple prices:
+
+```ruby
+class Price
+	include Mongoid::Document
+	include MoneyRails::Mongoid::Monetizable
+
+	embedded_in :prices, :polymorphic => true
+end
+
+class Account
+	include Mongoid::Document
+
+	embeds_one :rental_price, :as => :priced
+	embeds_one :deposit, :as => :priced	
+end
+```
+
+### MongoMapper example
+
+```ruby
+class Account
+	include Mongoid::Document
+	include MoneyRails::MongoMapper::Monetizable
+end
+```
+
+A similar "multiple price" model can be used for MongoMapper.
+
 ## License
 
 MIT License. Copyright 2012 RubyMoney.
