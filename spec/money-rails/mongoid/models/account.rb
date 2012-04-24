@@ -1,13 +1,10 @@
-class Price
-  include Mongoid::Document
-  include MoneyRails::Mongoid::Monetizable
-
-  belongs_to  :priced, :polymorphic => true
-end
-
 class Account
-  include MongoMapper::Document
+  include Mongoid::Document
+	include MoneyRails::Mongoid::Monetize
 
-  one :rental_price, :as => :priced
-  one :deposit, :as => :priced  
+  embeds_one 		:deposit, 			:as => :priced  
+  monetize_one 	:rental_price
+
+  monetize 			:rent
+  monetize_many :costs, :class_name => 'Price'
 end

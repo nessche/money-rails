@@ -1,26 +1,32 @@
-require 'spec_helper'
-
-require 'mongo_mapper'
-require 'money-rails/mongo_mapper/models/account'
+require 'money-rails/mongo_mapper/spec_helper'
 
 describe MoneyRails::MongoMapper::Monetizable do
+  before do
+    Money.default_currency = 'USD'
+  end
 
   describe "monetize" do
-    before :each do
-      @account = Account.create(:price_cents => 3000, :discount => 150,
-                                :bonus_cents => 200)
+    subject { account }
+
+    let(:account) do
+      Account.create  :rental_price => Price.for(3000, :usd) #, 
+                      # :deposit => Price.for(150, :usd), 
+                      # :rent => Price.for(100)
     end
 
-    it "attaches a Money object to model field" do
-      @account.price.should == Money.new(3000)
+    it "rental is money" do
+      subject.rental_price.price.should == Money.new(3000)
     end
 
-    it "respects :target_name argument" do
-      @account.discount_value.should == Money.new(150)
-    end
+    # it_behaves_like 'a generic account'
 
-    it "overrides table currency with a field specific" do
-      @account.bonus.currency.should == Money::Currency.find(:eur)
-    end
+    # context 'can add multiple costs' do     
+    #   before do
+    #     account.costs << Price.for(100, :usd)
+    #     account.costs << Price.for(200)
+    #   end
+
+    #   its(:costs) { should have(2).items }
+    # end
   end
 end
