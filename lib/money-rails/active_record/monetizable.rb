@@ -37,8 +37,8 @@ module MoneyRails
               :class_name => "Money",
               :mapping => [[subunit_name, "cents"], [model_currency_name, "currency_as_string"]],
               :constructor => Proc.new { |cents, currency|
-              Money.new(cents || 0, field_currency_name || currency ||
-                        Money.default_currency)
+              ::Money.new(cents || 0, field_currency_name || currency ||
+                        ::Money.default_currency)
             },
               :converter => Proc.new { |value|
               if  value.respond_to?(:to_money)

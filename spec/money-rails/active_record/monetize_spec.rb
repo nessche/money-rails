@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-describe MoneyRails::Monetizable do
+# Require dummy Rails app
+require File.expand_path("../../spec/dummy/config/environment", __FILE__)
+
+describe MoneyRails::ActiveRecord::Monetizable do
 
   describe "monetize" do
     before :each do

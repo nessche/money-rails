@@ -112,14 +112,14 @@ A similar "multiple price" model can be used for MongoMapper.
 
 ```ruby
 class Price
-	include Mongoid::Document
+	include MongoMapper::Document
 	include MoneyRails::Mongoid::Monetizable
 
 	belongs_to 	:priced, :polymorphic => true
 end
 
 class Account
-	include Mongoid::Document
+	include MongoMapper::Document
 
 	one :rental_price, :as => :priced
 	one :deposit, :as => :priced	

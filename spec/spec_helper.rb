@@ -1,8 +1,5 @@
 ENV["RAILS_ENV"] = 'test'
 
-# Require dummy Rails app
-require File.expand_path("../../spec/dummy/config/environment", __FILE__)
-
 require 'rspec/rails'
 require 'rspec/autorun'
 
