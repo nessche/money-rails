@@ -2,7 +2,7 @@
 
 module MoneyRails
 	module MongoMapper
-		module Monetizable
+		module Monetizable			
 			def self.included(base)
 				base.class_eval do
 				  key :price_pence, 	Integer, :default => 0
@@ -10,22 +10,31 @@ module MoneyRails
 				  
 				  validates_numericality_of :price_pence
 				end
+				base.extend ClassMethods
 			end
 
-			def self.monetize_one name, options = {:as => :priced}
-				as_poly = options[:as] || MoneyRails.default_polymorphic_money
-				unless as_poly
-					raise ArgumentError, "You must set an :as option indicating the polymorphic Monetizable model. See money-rails gem."
+			module ClassMethods
+				def monetize_one name, options = {:as => :priced}
+					as_poly = options[:as] || MoneyRails.default_polymorphic_money
+					unless as_poly
+						raise ArgumentError, "You must set an :as option indicating the polymorphic Monetizable model. See money-rails gem."
+					end
+					embeds_one name, :as => as_poly
 				end
-				embeds_one name, :as => as_poly
-			end
+				
+				alias_method :monetize, :monetize_one
 
-			def self.monetize_many name, options = {:as => :priced}
-				as_poly = options[:as] || MoneyRails.default_polymorphic_money
-				unless as_poly
-					raise ArgumentError, "You must set an :as option indicating the polymorphic Monetizable model. See money-rails gem."
+				def monetize_for *names, options = {:as => :priced}
+					names.each {|name| monetize name, options}
 				end
-				embeds_many name, :as => as_poly
+
+				def monetize_many name, options = {:as => :priced}
+					as_poly = options[:as] || MoneyRails.default_polymorphic_money
+					unless as_poly
+						raise ArgumentError, "You must set an :as option indicating the polymorphic Monetizable model. See money-rails gem."
+					end
+					embeds_many name, :as => as_poly
+				end
 			end
 			  
 		  # Virtual price / currency attributes

@@ -131,8 +131,9 @@ end
 To make it more convenient and feel more like the ActiveRecord DSL, we provide
 similar convenience methods:
 
-* monetize_one
+* monetize_one (aliased as monetize)
 * monetize_many
+* monetize_for (call monetize for multiple names)
 
 ```ruby
 # in initializer or some other place
@@ -145,6 +146,10 @@ class Account
 
 	monetize_one :rental_price
 	monetize_many :deposits
+
+	monetize :secret_price, :as => :priced
+
+	monetize_for :low_price, :high_price
 
 	# Using a custom Monetizable model
 	monetize_one :total_cost, :as => :costable	
