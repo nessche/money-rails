@@ -17,17 +17,17 @@ module MoneyRails
 
 				def monetize_orm orm = :mongoid
 					if [:mongoid, :mongo_mapper].include? orm.to_sym					
-						self.send :include, "MoneyRails::#{orm.to_s.camelize}::Monetize".constantize
 						set_money_orm orm
+						self.send :include, "MoneyRails::#{orm.to_s.camelize}::Monetize".constantize						
 					else
 						raise ArgumentError, "ORM #{orm} has no money macro support yet"
 					end
 				end
 
 				def monetizable_orm orm = :mongoid
-					if [:mongoid, :mongo_mapper].include? orm.to_sym					
-						self.send :include, "MoneyRails::#{orm.to_s.camelize}::Monetizable".constantize
+					if [:mongoid, :mongo_mapper].include? orm.to_sym
 						set_money_orm orm
+						self.send :include, "MoneyRails::#{orm.to_s.camelize}::Monetizable".constantize					
 					else
 						raise ArgumentError, "ORM #{orm} has no money macro support yet"
 					end

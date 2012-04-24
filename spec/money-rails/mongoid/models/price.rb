@@ -1,6 +1,4 @@
 class Price
-  include Mongoid::Document
-  # include MoneyRails::Mongoid::Monetizable
   monetizable_orm :mongoid
 
   embedded_in :priced, :polymorphic => true
