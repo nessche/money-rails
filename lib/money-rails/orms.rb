@@ -11,6 +11,11 @@ if defined?(MongoMapper::Document)
 end
 
 module MoneyRails
+
+	class << self
+		attr_accessor :default_polymorphic_money
+	end
+
 	module Orms
 		def self.extend_for name = :active_record
 			case name.to_sym

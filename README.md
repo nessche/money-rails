@@ -88,7 +88,7 @@ class Price
 	include Mongoid::Document
 	include MoneyRails::Mongoid::Monetizable
 
-	embedded_in :prices, :polymorphic => true
+	embedded_in :priced, :polymorphic => true
 end
 
 class Account
@@ -109,6 +109,47 @@ end
 ```
 
 A similar "multiple price" model can be used for MongoMapper.
+
+```ruby
+class Price
+	include Mongoid::Document
+	include MoneyRails::Mongoid::Monetizable
+
+	belongs_to 	:priced, :polymorphic => true
+end
+
+class Account
+	include Mongoid::Document
+
+	one :rental_price, :as => :priced
+	one :deposit, :as => :priced	
+end
+```
+
+## For convenience
+
+To make it more convenient and feel more like the ActiveRecord DSL, we provide
+similar convenience methods:
+
+* monetize_one
+* monetize_many
+
+```ruby
+# in initializer or some other place
+
+MoneyRails.default_polymorphic_money = :priced
+
+# later in your models
+class Account
+	include Mongoid::Document
+
+	monetize_one :rental_price
+	monetize_many :deposits
+
+	# Using a custom Monetizable model
+	monetize_one :total_cost, :as => :costable	
+end
+```
 
 ## License
 

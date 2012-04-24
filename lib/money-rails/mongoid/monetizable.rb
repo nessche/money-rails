@@ -11,6 +11,22 @@ module MoneyRails
 				  validates_numericality_of :price_pence
 				end
 			end
+
+			def self.monetize_one name, options = {:as => :priced}
+				as_poly = options[:as] || MoneyRails.default_polymorphic_money
+				unless as_poly
+					raise ArgumentError, "You must set an :as option indicating the polymorphic Monetizable model. See money-rails gem."
+				end
+				one name, :as => as_poly
+			end
+
+			def self.monetize_many name, options = {:as => :priced}
+				as_poly = options[:as] || MoneyRails.default_polymorphic_money
+				unless as_poly
+					raise ArgumentError, "You must set an :as option indicating the polymorphic Monetizable model. See money-rails gem."
+				end
+				many name, :as => as_poly
+			end
 			  
 		  # Virtual price / currency attributes
 		  
