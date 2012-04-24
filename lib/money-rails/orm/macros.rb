@@ -9,9 +9,9 @@ module MoneyRails
 				def set_money_orm orm = :mongoid
 					case orm.to_sym
 					when :mongoid
-						self.send :include, Mongoid::Document
+						self.send :include, ::Mongoid::Document
 					else
-						self.send :include, MongoMapper::Document
+						self.send :include, ::MongoMapper::Document
 					end
 				end					
 
