@@ -12,7 +12,6 @@ if defined?(Mongoid::Document)
 end
 
 if defined?(MongoMapper::Document)
-	puts "mongo mapper"
 	require "money-rails/mongo_mapper/monetizable"
 	require "money-rails/mongo_mapper/monetize"
 end

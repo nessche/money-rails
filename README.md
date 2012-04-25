@@ -178,6 +178,9 @@ You can customize your macro method-mappings via `MoneyRails::Moneys` as shown h
 
 ```ruby
 MoneyRails::Moneys.cost_class = Price
+
+# or to set the all to the same
+MoneyRails::Moneys.classes = Price
 ```
 
 The default map can be seen in `MoneyRails::Moneys.macro_map`

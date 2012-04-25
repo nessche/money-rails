@@ -12,8 +12,10 @@ class Object
 	  define_method method_name do |amount, currency=nil|
 	  	currency = ::Money::Currency.new(currency || ::Money.default_currency)
 	  	money = Money.new(amount, currency)
+
 	  	class_name = "#{klass}_class"
-	  	MoneyRails::Moneys.send(class_name).new :price => money
+	  	money_klass = MoneyRails::Moneys.send(class_name)
+	  	money_klass.new :price => money
 	  end
 
 	end

@@ -5,7 +5,6 @@ module MoneyRails
 		  module ClassMethods
 			  def monetize_for *names
 					options = names.last.kind_of?(Hash) ? names.delete(names.last) : {:as => :priced}
-					puts "name: #{names} , options: #{options}"
 					names.each {|name| monetize name, options }
 				end
 			end

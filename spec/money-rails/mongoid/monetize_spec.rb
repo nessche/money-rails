@@ -54,6 +54,20 @@ describe MoneyRails::Mongoid::Monetizable do
           subject.rental_price.price.should == Money.new(3000)
         end
       end
+
+      context 'set all money classes to Price' do
+        subject { valued_at(4000) }
+
+        before do
+          MoneyRails::Moneys.classes = Price
+        end
+
+        specify { MoneyRails::Moneys.value_class.should == Price }
+
+        specify { subject.should be_a Price }
+        specify { subject.price.should be_a Money }
+        specify { subject.price.should == Money.new(4000) }
+      end
     end
   end
 end

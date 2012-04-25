@@ -2,7 +2,6 @@ module MoneyRails
 	module Orm
 		module Macros
 			def self.included(base)
-				puts "base macros: #{base}"
 				base.send :include, ClassMethods
 			end
 
