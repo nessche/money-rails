@@ -30,8 +30,10 @@ module MoneyRails
 				if defined?(::ActiveRecord::Base)
 					::ActiveRecord::Base.send(:include, MoneyRails::ActiveRecord::Monetizable) 
 				end
-			when :mongoid, :mongo_mapper
-				Object.send :include, ::MoneyRails::Orm::Macros
+			when :mongoid
+				require 'money-rails/mongoid/macros'
+			when:mongo_mapper
+				require 'money-rails/mongo_mapper/macros'
 			else
 				raise ArgumentError, "ORM extension for #{name} is currently not supported."
 			end

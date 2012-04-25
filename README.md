@@ -143,6 +143,7 @@ MoneyRails.default_polymorphic_money = :priced
 
 # later in your models
 class Account
+	include Mongoid::Document
 	monetize_orm :mongoid
 
 	monetize_one :rental_price
@@ -156,6 +157,30 @@ class Account
 	monetize_one :total_cost, :as => :costable	
 end
 ```
+
+## Extra cool features!
+
+Note: These features currently only work for *Mongoid*
+
+```ruby
+class Price
+	include Mongoid::Document
+  monetizable_orm :mongoid, :as => :priced
+```
+
+```ruby
+Account.create  :rental_price => priced_at(3000, :usd), 
+                :deposit => priced_at(150, :usd), 
+                :rent => priced_at(100)
+```
+
+You can customize your macro method-mappings via `MoneyRails::Moneys` as shown here:
+
+```ruby
+MoneyRails::Moneys.cost_class = Price
+```
+
+The default map can be seen in `MoneyRails::Moneys.macro_map`
 
 ## License
 
