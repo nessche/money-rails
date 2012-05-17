@@ -11,7 +11,9 @@ describe MoneyRails::Mongoid::Monetizable do
     let(:account) do
       Account.create 	:rental_price => Price.for(3000, :usd), 
       								:deposit => Price.for(150, :usd), 
-      								:rent => Price.for(100)
+      								:rent => Price.for(100),
+                      :utility => priced_at(200),
+                      :services => priced_at(150)
     end
 
 
@@ -52,6 +54,18 @@ describe MoneyRails::Mongoid::Monetizable do
 
         it "rental is money" do
           subject.rental_price.price.should == Money.new(3000)
+        end
+
+        it "price compare < Numeric" do
+          subject.rental_price.price.should < 3100
+        end
+
+        it "price compare == Numeric" do          
+          subject.rental_price.price.should be_eql(3000)
+        end
+
+        it "price compare > Numeric" do
+          subject.rental_price.price.should_not > 3001
         end
       end
 

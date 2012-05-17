@@ -3,6 +3,7 @@ module MoneyRails
 		module Monetize
 			def self.included(base)
 				base.extend ClassMethods				
+				base.extend MoneyRails::Orm::Generic::ClassMethods
 			end
 
 			module ClassMethods

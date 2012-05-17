@@ -114,6 +114,7 @@ A similar "multiple price" model can be used for MongoMapper.
 
 ```ruby
 class Price
+  include Mongoid::Document
 	monetizable_orm :mongo_mapper
 
 	belongs_to 	:priced, :polymorphic => true

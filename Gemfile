@@ -1,7 +1,7 @@
 source :rubygems
 
 # Add dependencies required to use your gem here.
-gem 'money', 					">= 5.0"
+gem 'money', 					"~> 5.2.1", :git => 'git://github.com/kristianmandrup/money.git'
 gem 'activesupport', 	">= 3.0"
 gem 'railties', 			">= 3.0"
 
