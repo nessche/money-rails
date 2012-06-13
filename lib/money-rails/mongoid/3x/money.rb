@@ -12,10 +12,14 @@ class Money
         ::Money.new value[:cents], value[:currency_iso]
       end
 
-      # TODO
-      # def evolve(object)
-      #   { "$gte" => object.first, "$lte" => object.last }
-      # end
+
+      def evolve(object)
+        if object.is_a? String
+          object = Money.parse(object)
+        end
+        object.mongoize
+      end
+
     end
   end
 end

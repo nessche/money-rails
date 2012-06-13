@@ -6,10 +6,10 @@ gem 'activesupport', 	">= 3.0"
 gem 'railties', 			">= 3.0"
 
 group :test do
-	gem 'mongoid'
+	gem 'mongoid',       "3.0.0.rc"
 	gem 'mongo_mapper'
 	gem 'bson'
-	# gem 'bson_ext'
+	gem 'bson_ext'
 
 	gem 'activerecord'
   gem 'sqlite3'

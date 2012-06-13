@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'mongoid'
 
-require 'timespan/mongoid/mongoid_setup'
+require 'money-rails/mongoid/mongoid_setup'
 
 Mongoid.configure do |config|
   Mongoid::VersionSetup.configure config
