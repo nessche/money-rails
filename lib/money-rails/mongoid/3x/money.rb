@@ -1,4 +1,4 @@
-class Money
+
   module Mongoize
     extend ActiveSupport::Concern
     # See http://mongoid.org/en/mongoid/docs/upgrading.html        
@@ -14,17 +14,21 @@ class Money
 
 
       def evolve(object)
-        if object.is_a? String
-          object = Money.parse(object)
-        end
-        object.mongoize
+        object.__evolve_to_money__.mongoize
       end
+
+
 
     end
   end
-end
+
 
 
 class Money
   include Mongoize
+
+  def __evolve_to_money__
+    self
+  end
+
 end

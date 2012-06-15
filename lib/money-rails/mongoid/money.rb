@@ -3,3 +3,4 @@ module Mongoid
 end
 
 require "money-rails/mongoid/#{Mongoid::MAJOR_VERSION}x/money"
+require "money-rails/mongoid/extensions/string"
